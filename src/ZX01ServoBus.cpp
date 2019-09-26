@@ -12,8 +12,8 @@ void ZX01ServoBus::begin() {
   }
 }
 
-ZX01Servo *ZX01ServoBus::createServo(uint8_t id, ZX01ServoMode mode) {
-  auto servo = new ZX01Servo(this, id, mode);
+ZX01Servo *ZX01ServoBus::createServo(uint8_t id, ZX01ServoMode mode, int16_t offsetDegree) {
+  auto servo = new ZX01Servo(this, id, mode, offsetDegree);
   _servos.push_back(servo);
   return servo;
 }

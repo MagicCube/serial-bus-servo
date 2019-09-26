@@ -17,7 +17,8 @@ enum class ZX01ServoMode {
 class ZX01Servo {
 public:
   // Creates a new instance of `ZX01Servo`.
-  ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode = ZX01ServoMode::CLOCKWISE_270);
+  ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode = ZX01ServoMode::CLOCKWISE_270,
+            int16_t offsetDegree = 0);
 
   // Gets the rotation in degrees.
   int16_t rotation();
@@ -35,6 +36,12 @@ public:
 
   // Set current roation as initial value.
   void setInitialRotation();
+
+  void stopRotating();
+
+  void pauseRotating();
+
+  void continueRotating();
 
   void loadTorque();
 

@@ -2,7 +2,7 @@
 
 #include "ZX01ServoBus.h"
 
-ZX01Servo::ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode) {
+ZX01Servo::ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode, int16_t offsetDegree) {
   _bus = bus;
   _id = id;
   _mode = mode;
@@ -10,11 +10,11 @@ ZX01Servo::ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode) {
   switch (_mode) {
   case ZX01ServoMode::CLOCKWISE_270:
   case ZX01ServoMode::COUNTERCLOCKWISE_270:
-    _scale.inputDomain(0, 270);
+    _scale.inputDomain(0 + offsetDegree, 270 + offsetDegree);
     break;
   case ZX01ServoMode::CLOCKWISE_180:
   case ZX01ServoMode::COUNTERCLOCKWISE_180:
-    _scale.inputDomain(0, 180);
+    _scale.inputDomain(0 + offsetDegree, 180 + offsetDegree);
     break;
   }
 }
@@ -44,6 +44,18 @@ void ZX01Servo::rotateTo(int16_t degree, uint16_t duration) {
   char command[16];
   sprintf(command, "%dT%d", _scale.convert(degree), duration);
   _bus->sendCommand(_id, command, false);
+}
+
+void ZX01Servo::pauseRotating() {
+  _bus->sendCommand(_id, "DPT");
+}
+
+void ZX01Servo::stopRotating() {
+  _bus->sendCommand(_id, "DST");
+}
+
+void ZX01Servo::continueRotating() {
+  _bus->sendCommand(_id, "DCT");
 }
 
 void ZX01Servo::setInitialRotation() {

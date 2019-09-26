@@ -18,7 +18,8 @@ public:
   void begin();
 
   // Creates a servo with specific ID, and returns a new instance of ZX01Servo.
-  ZX01Servo *createServo(uint8_t id, ZX01ServoMode mode = ZX01ServoMode::COUNTERCLOCKWISE_270);
+  ZX01Servo *createServo(uint8_t id, ZX01ServoMode mode = ZX01ServoMode::COUNTERCLOCKWISE_270,
+                         int16_t offsetDegree = 0);
 
   // Sends a command to specific servo.
   // Sends to all servo when `servoId` equals to 255.
