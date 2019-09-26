@@ -21,7 +21,7 @@ ZX01Servo::ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode) {
 
 void ZX01Servo::begin() {
   char command[5];
-  sprintf(command, "MOD%d", 1);
+  sprintf(command, "MOD%d", (uint8_t)_mode);
   _bus->sendCommand(_id, command);
 }
 
@@ -46,10 +46,18 @@ void ZX01Servo::rotateTo(int16_t degree, uint16_t duration) {
   _bus->sendCommand(_id, command, false);
 }
 
+void ZX01Servo::setInitialRotation() {
+  _bus->sendCommand(_id, "CSD");
+}
+
 void ZX01Servo::loadTorque() {
   _bus->sendCommand(_id, "ULR");
 }
 
 void ZX01Servo::unloadTorque() {
   _bus->sendCommand(_id, "ULK");
+}
+
+void ZX01Servo::factoryReset() {
+  _bus->sendCommand(_id, "CLE");
 }

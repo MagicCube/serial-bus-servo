@@ -16,18 +16,16 @@ void setup() {
   pinMode(SERIAL_PIN, OUTPUT | PULLUP | OPEN_DRAIN);
 
   // createServo
-  servo = bus.createServo(1);
+  servo = bus.createServo(1, ZX01ServoMode::COUNTERCLOCKWISE_270);
 
   bus.begin();
-
-  servo->loadTorque();
-  servo->rotateTo(0);
-
-  delay(2000);
-  servo->unloadTorque();
 }
 
 void loop() {
-  Serial.println(servo->rotation());
-  delay(1000);
+  servo->rotateTo(0);
+  delay(5000);
+  servo->rotateTo(270 / 2);
+  delay(5000);
+  servo->rotateTo(270);
+  delay(5000);
 }

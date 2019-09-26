@@ -33,8 +33,14 @@ public:
   // Rotates to specific degree.
   void rotateTo(int16_t degree, uint16_t duration = 10);
 
+  // Set current roation as initial value.
+  void setInitialRotation();
+
   void loadTorque();
+
   void unloadTorque();
+
+  void factoryReset();
 
 private:
   uint8_t _id;
