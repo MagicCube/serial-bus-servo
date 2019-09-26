@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include "LinearScale.h"
+
 class ZX01ServoBus;
 
 enum class ZX01ServoMode {
@@ -15,8 +17,7 @@ enum class ZX01ServoMode {
 class ZX01Servo {
 public:
   // Creates a new instance of `ZX01Servo`.
-  ZX01Servo(ZX01ServoBus *bus, uint8_t id,
-            ZX01ServoMode mode = ZX01ServoMode::COUNTERCLOCKWISE_270);
+  ZX01Servo(ZX01ServoBus *bus, uint8_t id, ZX01ServoMode mode = ZX01ServoMode::CLOCKWISE_270);
 
   // Gets the rotation in degrees.
   int16_t rotation();
@@ -30,13 +31,14 @@ public:
   void begin();
 
   // Rotates to specific degree.
-  void rotateTo(int16_t degree, uint16_t duration = 100);
+  void rotateTo(int16_t degree, uint16_t duration = 10);
+
+  void loadTorque();
+  void unloadTorque();
 
 private:
   uint8_t _id;
   ZX01ServoMode _mode;
+  LinearScale _scale;
   ZX01ServoBus *_bus;
-
-  uint16_t _convertDegreeToPosition(int16_t degree);
-  int16_t _convertPositionToDegree(uint16_t degree);
 };

@@ -12,7 +12,7 @@ void ZX01ServoBus::begin() {
   }
 }
 
-ZX01Servo *ZX01ServoBus::registerServo(uint8_t id, ZX01ServoMode mode) {
+ZX01Servo *ZX01ServoBus::createServo(uint8_t id, ZX01ServoMode mode) {
   auto servo = new ZX01Servo(this, id, mode);
   _servos.push_back(servo);
   return servo;
@@ -46,7 +46,8 @@ String ZX01ServoBus::sendCommand(uint8_t servoId, const char *command, bool with
   // Read echo
   readLine();
   if (withResponse) {
-    return readLine();
+    auto res = readLine();
+    return res;
   }
   return "";
 }

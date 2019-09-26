@@ -17,8 +17,8 @@ public:
   // Initializes the servo bus.
   void begin();
 
-  // Registers a servo with specific ID, and returns a new instance of ZX01Servo.
-  ZX01Servo *registerServo(uint8_t id, ZX01ServoMode mode = ZX01ServoMode::COUNTERCLOCKWISE_270);
+  // Creates a servo with specific ID, and returns a new instance of ZX01Servo.
+  ZX01Servo *createServo(uint8_t id, ZX01ServoMode mode = ZX01ServoMode::COUNTERCLOCKWISE_270);
 
   // Sends a command to specific servo.
   // Sends to all servo when `servoId` equals to 255.
