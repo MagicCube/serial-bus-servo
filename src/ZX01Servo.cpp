@@ -42,7 +42,8 @@ void ZX01Servo::rotation(int16_t degree) {
 
 void ZX01Servo::rotateTo(int16_t degree, uint16_t duration) {
   char command[16];
-  sprintf(command, "%dT%d", _scale.convert(degree), duration);
+  auto pos = _scale.convert(degree);
+  sprintf(command, "%dT%d", pos, duration);
   _bus->sendCommand(_id, command, false);
 }
 
@@ -58,8 +59,20 @@ void ZX01Servo::continueRotating() {
   _bus->sendCommand(_id, "DCT");
 }
 
-void ZX01Servo::setInitialRotation() {
+void ZX01Servo::setInitPosition() {
   _bus->sendCommand(_id, "CSD");
+}
+
+void ZX01Servo::setCentralPosition() {
+  _bus->sendCommand(_id, "SCK");
+}
+
+void ZX01Servo::setAutoInitPosition(bool allow) {
+  if (allow) {
+    _bus->sendCommand(_id, "CSR");
+  } else {
+    _bus->sendCommand(_id, "CSM");
+  }
 }
 
 void ZX01Servo::loadTorque() {

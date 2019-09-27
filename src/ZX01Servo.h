@@ -34,19 +34,31 @@ public:
   // Rotates to specific degree.
   void rotateTo(int16_t degree, uint16_t duration = 10);
 
-  // Set current roation as initial value.
-  void setInitialRotation();
-
+  // Stops the current movement immediately.
   void stopRotating();
 
+  // Pauses the current movement.
   void pauseRotating();
 
+  // Continues paused movement.
   void continueRotating();
 
+  // Recovers torque.
   void loadTorque();
 
+  // Releases torque, so you can manually rotate the servo.
   void unloadTorque();
 
+  // Sets current roation as initial position.
+  void setInitPosition();
+
+  // Sets current roation as central point.
+  void setCentralPosition();
+
+  // Sets whether it allows to automatically rotate to the initial position after powered.
+  void setAutoInitPosition(bool allow);
+
+  // Resets everything including ID.
   void factoryReset();
 
 private:

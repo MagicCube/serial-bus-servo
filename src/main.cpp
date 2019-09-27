@@ -2,7 +2,7 @@
 
 #include <ZX01.h>
 
-#define MAX_DEGREE 180
+#define MAX_DEGREE 270
 #define SERIAL_PIN 5
 
 ZX01ServoBus bus(&Serial1);
@@ -18,26 +18,22 @@ void setup() {
 
 // createServo
 #if MAX_DEGREE == 180
-  servo = bus.createServo(1, ZX01ServoMode::COUNTERCLOCKWISE_180, -MAX_DEGREE / 2);
+  servo = bus.createServo(1, ZX01ServoMode::CLOCKWISE_180, -MAX_DEGREE / 2);
 #else
-  servo = bus.createServo(1, ZX01ServoMode::COUNTERCLOCKWISE_270, -MAX_DEGREE / 2);
+  servo = bus.createServo(1, ZX01ServoMode::CLOCKWISE_270, -MAX_DEGREE / 2);
 #endif
 
   bus.begin();
 
-  servo->rotateTo(0, 1500);
-  delay(1500);
+  servo->setAutoInitPosition(true);
+  // servo->setCentralPosition();
 
-  servo->rotateTo(-60, 1500);
-  delay(1500);
-  delay(3000);
+  servo->factoryReset();
 
-  servo->rotateTo(60, 8 * 1000);
-  delay(8 * 1000);
-  delay(3000);
-
-  servo->rotateTo(0);
+  // servo->rotateTo(0, 1000);
 }
 
 void loop() {
+  delay(3000);
+  servo->rotateTo(0);
 }

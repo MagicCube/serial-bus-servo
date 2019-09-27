@@ -44,10 +44,15 @@ String ZX01ServoBus::sendCommand(uint8_t servoId, const char *command, bool with
   // End of command
   print("\r\n");
   // Read echo
-  readLine();
+  auto echo = readLine();
+  Serial.print(">> ");
+  Serial.println(echo);
   if (withResponse) {
     auto res = readLine();
+    Serial.print(">> ");
+    Serial.println(res);
     return res;
   }
+  Serial.println();
   return "";
 }
