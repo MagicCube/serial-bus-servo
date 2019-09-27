@@ -24,16 +24,12 @@ void setup() {
 #endif
 
   bus.begin();
-
-  servo->setAutoInitPosition(true);
-  // servo->setCentralPosition();
-
-  servo->factoryReset();
-
-  // servo->rotateTo(0, 1000);
 }
 
 void loop() {
-  delay(3000);
-  servo->rotateTo(0);
-}
+  servo->rotateTo(-45, 1000);
+  delay(2 * 1000);
+  servo->rotateTo(45, 10 * 1000);
+  delay(10 * 1000);
+  delay(2 * 1000);
+};
